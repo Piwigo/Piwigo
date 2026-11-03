@@ -2069,19 +2069,7 @@ SELECT COUNT(*)
   }
 
   // are all chunks uploaded?
-  // a single directory read: testing each chunk with file_exists() and then
-  // opening it was a check-then-act. The request which merges the series
-  // deletes the chunks in between, and PHP then wrote a "failed to open
-  // stream" warning in the body of the response, ahead of the JSON.
-  $chunk_ids_uploaded = array();
-  foreach (glob(sprintf('%s-*of%03u.chunk', $output_filepath_prefix, $params['chunks'])) as $chunkfile)
-  {
-    if (preg_match('/-(\d+)of\d+\.chunk$/', $chunkfile, $matches))
-    {
-      $chunk_ids_uploaded[] = (int)$matches[1];
-    }
-  }
-  sort($chunk_ids_uploaded, SORT_NUMERIC);
+  $chunk_ids_uploaded = ws_images_uploadAsync_get_chunk_ids($output_filepath_prefix, $params['chunks']);
 
   if ($params['chunks'] != count($chunk_ids_uploaded))
   {
@@ -2089,18 +2077,43 @@ SELECT COUNT(*)
     $logger->debug(__FUNCTION__.' all chunks are not uploaded yet, maybe on next chunk, exit for now');
     return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
   }
-  
+
   // all chunks available
-  $logger->debug(__FUNCTION__.' '.$params['original_sum'].' '.$params['chunks'].' chunks available, try now to get lock for merging');
+  $logger->debug(__FUNCTION__.' '.$params['original_sum'].' '.$params['chunks'].' chunks available, try now to get the token for merging');
+
+  // only one request merges the series. The lock is not taken on the merged
+  // file itself, which gets truncated, renamed by add_uploaded_file() or
+  // deleted: the token is kept until the merged file has been moved, and it
+  // lives in the database, so it also works with several web servers sharing
+  // the buffer directory. One token per series, its name must fit in 32
+  // characters.
+  $token_name = 'ua_'.substr(md5($params['original_sum'].'-u'.$user['id']), 0, 24);
+
+  $exec_id = pwg_unique_exec_begins($token_name);
+  if (false === $exec_id)
+  {
+    // give up at once instead of keeping a PHP worker waiting
+    $logger->debug(__FUNCTION__.' '.$params['original_sum'].' is being merged by another request');
+    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
+  }
+
+  // the token is released whatever happens next, including a fatal error
+  // such as max_execution_time exceeded
+  register_shutdown_function('pwg_unique_exec_ends', $token_name, $exec_id);
+
+  // another request may have merged the series between our scan and the
+  // moment we got the token: check again before touching anything
+  $chunk_ids_uploaded = ws_images_uploadAsync_get_chunk_ids($output_filepath_prefix, $params['chunks']);
+  if ($params['chunks'] != count($chunk_ids_uploaded))
+  {
+    $logger->debug(__FUNCTION__.' '.$params['original_sum'].' already merged by another request');
+    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
+  }
+
   $output_filepath = $output_filepath_prefix.'.merged';
-  
-  // create the merged file without truncating it: the lock has to be acquired
-  // before anything destructive happens. Testing the existence of the file and
-  // then opening it with "wb" was a check-then-act, two requests which both
-  // find the series complete passed the test and truncated each other's file,
-  // which produced a corrupted merge or a checksum mismatch. It also left any
-  // file abandoned by an interrupted merge blocking that upload for a week.
-  $fp = fopen($output_filepath, 'c+b');
+
+  // we hold the token, whatever an interrupted merge may have left is dropped
+  $fp = fopen($output_filepath, 'wb');
   if ( !$fp )
   {
     // unable to create file and open it for writing
@@ -2108,21 +2121,7 @@ SELECT COUNT(*)
     return new PwgError(500, 'error while creating merged '.$output_filepath);
   }
 
-  // acquire an exclusive lock and keep it until merge completes.
-  // Another uploadAsync request merging this very series holds the lock until
-  // it is done: give up at once instead of keeping a PHP worker waiting.
-  if (!flock($fp, LOCK_EX | LOCK_NB))
-  {
-    fclose($fp);
-    $logger->debug(__FUNCTION__.' '.$output_filepath.' is being merged by another request');
-    return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
-  }
-
-  // the lock is held, whatever an interrupted merge may have left is dropped
-  ftruncate($fp, 0);
-  rewind($fp);
-
-  $logger->debug(__FUNCTION__.' lock obtained to merge chunks');
+  $logger->debug(__FUNCTION__.' token obtained to merge chunks');
 
   // loop over all chunks
   // the checksum of the merged file is computed while the chunks are appended,
@@ -2133,13 +2132,12 @@ SELECT COUNT(*)
   {
     $chunkfile_path = sprintf($chunkfile_path_pattern, $chunk_id, $params['chunks']);
 
-    // chunk deleted by preceding merge?
+    // chunk deleted in the meantime (housekeeping)?
     $chunk_data = @file_get_contents($chunkfile_path);
     if (false === $chunk_data)
     {
       // cancel merge
       $logger->error(__FUNCTION__.' '.$chunkfile_path.' not available anymore');
-      flock($fp, LOCK_UN);
       fclose($fp);
       @unlink($output_filepath);
       return array('message' => 'chunks uploaded = '.implode(',', $chunk_ids_uploaded));
@@ -2152,7 +2150,6 @@ SELECT COUNT(*)
     {
       // could not append chunk
       $logger->error(__FUNCTION__.' error merging chunk '.$chunkfile_path);
-      flock($fp, LOCK_UN);
       fclose($fp);
 
       // delete merge file without returning an error
@@ -2163,9 +2160,7 @@ SELECT COUNT(*)
     $logger->debug(__FUNCTION__.' original_sum='.$params['original_sum'].', chunk '.$chunk_id.'/'.$params['chunks'].' merged');
   }
 
-  // flush output before releasing lock
   fflush($fp);
-  flock($fp, LOCK_UN);
   fclose($fp);
 
   $logger->debug(__FUNCTION__.' merged file '.$output_filepath.' saved');
@@ -2265,9 +2260,45 @@ SELECT COUNT(*)
         }
       }
     }
+
+    // merge tokens left behind by a request killed without running its
+    // shutdown functions (by the web server, for example). The value of a
+    // token is "<exec_id>-<timestamp>".
+    $query = '
+DELETE
+  FROM '.CONFIG_TABLE.'
+  WHERE param LIKE "ua\\_%\\_running"
+    AND SUBSTRING_INDEX(value, "-", -1) < '.($now - 60 * 60).'
+;';
+    pwg_query($query);
   }
 
   return $service->invoke('pwg.images.getInfo', array('image_id' => $image_id));
+}
+
+/**
+ * Returns the sorted list of chunk numbers (starting at 1) available in the
+ * upload buffer for a series. A single directory read: testing each chunk
+ * with file_exists() and then opening it was a check-then-act, which failed
+ * when another request deleted the chunks in between.
+ *
+ * @param string $output_filepath_prefix
+ * @param int $nb_chunks
+ * @return int[]
+ */
+function ws_images_uploadAsync_get_chunk_ids($output_filepath_prefix, $nb_chunks)
+{
+  $chunk_ids = array();
+  foreach (glob(sprintf('%s-*of%03u.chunk', $output_filepath_prefix, $nb_chunks)) as $chunkfile)
+  {
+    if (preg_match('/-(\d+)of\d+\.chunk$/', $chunkfile, $matches))
+    {
+      $chunk_ids[] = (int)$matches[1];
+    }
+  }
+  sort($chunk_ids, SORT_NUMERIC);
+
+  return $chunk_ids;
 }
 
 /**
