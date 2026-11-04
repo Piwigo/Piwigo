@@ -71,7 +71,7 @@ if (isset($_FILES['std_pgs_logo']) and !empty($_FILES['std_pgs_logo']['tmp_name'
 {
   $finfo = finfo_open(FILEINFO_MIME_TYPE);
   $mime_type = finfo_file($finfo, $_FILES['std_pgs_logo']['tmp_name']);
-  finfo_close($finfo); //deprecated
+ unset($finfo);
 
   // Allowed MIME types
   $allowed_mimes = array(
