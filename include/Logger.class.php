@@ -303,7 +303,16 @@ class Logger
    */
   public function write($line)
   {
-    $this->open();
+    try
+    {
+      $this->open();
+    }
+    catch (RuntimeException $e)
+    {
+      // Logging must not take down the request when its destination is unavailable.
+      return;
+    }
+
     if ($this->status() == self::STATUS_LOG_OPEN)
     {
       if (fwrite($this->_fileHandle, $line) === false)
