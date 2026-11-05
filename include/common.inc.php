@@ -358,7 +358,7 @@ if ( !$conf['allow_html_descriptions'] )
   add_event_handler('render_category_description', 'pwg_nl2br');
 }
 add_event_handler('render_comment_content', 'render_comment_content');
-add_event_handler('render_comment_author', 'strip_tags');
+add_event_handler('render_comment_author', 'render_comment_author');
 add_event_handler('render_tag_url', 'str2url');
 add_event_handler('render_person_url', 'str2url');
 add_event_handler('blockmanager_register_blocks', 'register_default_menubar_blocks', EVENT_HANDLER_PRIORITY_NEUTRAL-1);

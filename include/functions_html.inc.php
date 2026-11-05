@@ -227,6 +227,17 @@ function render_comment_content($content)
   return $content;
 }
 
+/**
+ * Apply strip_tags on author name
+ *
+ * @param string $author
+ * @return string
+ * @since 17
+ */
+function render_comment_author($author)
+{
+  return strip_tags($author ?? '');
+}
 
 /**
  * Callback used for sorting by name.
