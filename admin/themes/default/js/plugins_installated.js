@@ -735,6 +735,12 @@ jQuery(document).ready(function () {
     if (plugin_filter == "deactivated") {
       jQuery(".filterLabel[for='seeInactive']").trigger("click");
     }
+
+    const plugin_search = searchParams.get('search');
+    if (plugin_search) {
+      jQuery("label[for='seeAll']").trigger("click");
+      jQuery(".pluginFilter input").val(plugin_search).trigger("input");
+    }
 });
 
 $(document).mouseup(function (e) {

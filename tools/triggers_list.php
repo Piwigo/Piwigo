@@ -938,6 +938,13 @@ array(
   'files' => array('include\ws_core.inc.php (PwgServer::run)'),
 ),
 array(
+  'name' => 'ws_admin_global_search',
+  'type' => 'trigger_change',
+  'vars' => array('array', 'groups', 'string', 'search', 'int', 'per_page', 'string', 'type'),
+  'files' => array('include\ws_functions\pwg.admin.php (ws_admin_globalSearch)'),
+  'infos' => 'New in 17. Each group is an array with id, label, total and items (id, label, sub, url). $type is null for the overview, or the only group requested.',
+),
+array(
   'name' => 'ws_invoke_allowed',
   'type' => 'trigger_change',
   'vars' => array('bool', null, 'string', 'methodName', 'array', 'params'),

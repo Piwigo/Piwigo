@@ -1487,5 +1487,6 @@ $lang['People updated'] = 'People updated';
 $lang['Show people in the gallery'] = 'Show people in the gallery';
 $lang['Only users in specific groups'] = 'Only users in specific groups';
 $lang['Limited by the People permission in General'] = 'Limited by the People permission in General';
+$lang['Global search'] = 'Global search';
 
 // Leave this line empty

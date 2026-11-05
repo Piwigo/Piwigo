@@ -28,6 +28,12 @@ const people_search = $('#people_search');
 
 // ON DOM START
 $(function() {
+  const url_search = new URLSearchParams(window.location.search).get('search');
+  if (url_search) {
+    people_search_value = url_search.trim();
+    people_search.val(people_search_value);
+  }
+
   load_people(true);
 
   // open add/edit modal

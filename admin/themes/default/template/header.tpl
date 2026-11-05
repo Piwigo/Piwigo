@@ -61,6 +61,7 @@
   <div class="pwgHead-gallery-title">{$GALLERY_TITLE}</div>
 
   <div id="headActions">
+    <a href="#" id="global_search_trigger" class="tiptip" title="{'Global search'|translate}"><i class="icon-search"></i><span>{'Search'|translate}</span><kbd class="gsearch-head-kbd"></kbd></a>
     <span class="admin-head-username"><i class="icon-user"></i>{$USERNAME}</span>
 {*
     <a href="{$U_RETURN}" title="{'Visit Gallery'|translate}"><i class="icon-eye"></i><span>{'Visit Gallery'|translate}</span></a>
@@ -80,6 +81,8 @@
     <a href="{$U_LOGOUT}"><i class="icon-logout"></i><span>{'Logout'|translate}</span></a>
   </div>
 </div>
+
+{include file='include/global_search.inc.tpl'}
 
 <div style="clear:both;"></div>
 

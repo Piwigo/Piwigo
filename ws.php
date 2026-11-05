@@ -2010,6 +2010,43 @@ enabled_high, registration_date, registration_date_string, registration_date_sin
         'admin_only' => true,
       )
     );
+
+  $service->addMethod(
+      'pwg.admin.globalSearch',
+      'ws_admin_globalSearch',
+      array(
+        'query' => array(
+          'info' => 'At least 2 characters.'
+        ),
+        'limit' => array(
+          'default' => 5,
+          'maxValue' => 100,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
+          'info' => 'Maximum number of results per group, without type.'
+        ),
+        'type' => array(
+          'flags' => WS_PARAM_OPTIONAL,
+          'info' => 'albums, photos, users, people, plugins, pages. Returns this group only, paginated.'
+        ),
+        'page' => array(
+          'default' => 0,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE
+        ),
+        'per_page' => array(
+          'default' => 20,
+          'maxValue' => 100,
+          'type' => WS_TYPE_INT|WS_TYPE_POSITIVE|WS_TYPE_NOTNULL,
+          'info' => 'Used with type.'
+        ),
+      ),
+      'Searches albums (name), photos (name, file), users (username, email), people (name), plugins (name, id) and administration pages for the administration global search. Returns a list of groups, each with its total and its items (id, label, sub, url). With <b>type</b>, returns this group only, paginated with <b>page</b> and <b>per_page</b>.',
+      $ws_functions_root . 'pwg.admin.php',
+      array(
+        'hidden' => false,
+        'post_only' => false,
+        'admin_only' => true
+      )
+    );
 }
 
 ?>

@@ -2625,3 +2625,20 @@ div.error .jGrowl-popup-icon,
 .people-page .people-selection-list {
   color: #c0c0c0;
 }
+
+/* Global search */
+.gsearch-item-icon,
+.gsearch-item-badge,
+.gsearch-tab-count:not(:empty) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.gsearch-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.gsearch-item:hover,
+.gsearch-item.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}

@@ -1494,5 +1494,6 @@ $lang['People updated'] = 'Personnes mises à jour';
 $lang['Show people in the gallery'] = 'Afficher les personnes dans la galerie';
 $lang['Only users in specific groups'] = 'Uniquement les utilisateurs de certains groupes';
 $lang['Limited by the People permission in General'] = 'Limité par la permission People dans Général';
+$lang['Global search'] = 'Recherche globale';
 
 // Leave this line empty
