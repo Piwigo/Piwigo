@@ -28,6 +28,8 @@ $themes = new themes();
 
 if (isset($_GET['action']) and isset($_GET['theme']))
 {
+  check_pwg_token();
+
   $page['errors'] = $themes->perform_action($_GET['action'], $_GET['theme']);
 
   if (empty($page['errors']))
@@ -155,12 +157,14 @@ function cmp($a, $b)
 }
 usort($tpl_themes, 'cmp');
 
+$action_url = $base_url.'&amp;pwg_token='.get_pwg_token().'&amp;action=';
+
 $template->assign(
     array(
-      'activate_baseurl' => $base_url.'&amp;action=activate&amp;theme=',
-      'deactivate_baseurl' => $base_url.'&amp;action=deactivate&amp;theme=',
-      'set_default_baseurl' => $base_url.'&amp;action=set_default&amp;theme=',
-      'delete_baseurl' => $base_url.'&amp;action=delete&amp;theme=',
+      'activate_baseurl' => $action_url.'activate&amp;theme=',
+      'deactivate_baseurl' => $action_url.'deactivate&amp;theme=',
+      'set_default_baseurl' => $action_url.'set_default&amp;theme=',
+      'delete_baseurl' => $action_url.'delete&amp;theme=',
 
       'tpl_themes' => $tpl_themes,
     )
