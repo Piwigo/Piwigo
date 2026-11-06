@@ -26,7 +26,7 @@ $themes = new themes();
 // |                          perform actions                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['action']) and isset($_GET['theme']))
+if (isset($_GET['action']) and isset($_GET['theme']) and is_webmaster())
 {
   check_pwg_token();
 
