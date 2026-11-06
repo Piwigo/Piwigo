@@ -106,6 +106,11 @@ function ws_themes_performAction($params, $service)
     return new PwgError(403, 'Invalid security token');
   }
 
+  if (!is_webmaster())
+  {
+    return new PwgError(403, l10n('Webmaster status is required.'));
+  }
+
   if (!$conf['enable_extensions_install'] and 'delete' == $params['action'])
   {
     return new PwgError(401, 'Piwigo extensions install/update/delete system is disabled');
