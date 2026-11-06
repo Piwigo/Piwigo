@@ -731,6 +731,24 @@ SELECT '.$conf['user_fields']['id'].'
 }
 
 /**
+ * Returns an SQL condition comparing an email column with a given email.
+ *
+ * The comparison is case-insensitive but accent-sensitive: the default
+ * collation of the users table (utf8_general_ci, utf8mb4_unicode_ci...)
+ * considers "gmáil.com" equal to "gmail.com", which would let a lookalike
+ * address match another user's account (GHSA-hxf4-pc6v-4gg2).
+ *
+ * @since 16.5
+ * @param string $column SQL column name
+ * @param string $email raw (unescaped) email address
+ * @return string
+ */
+function get_sql_condition_email_equals($column, $email)
+{
+  return 'CAST(LOWER('.$column.') AS BINARY) = CAST(LOWER(\''.pwg_db_real_escape_string($email).'\') AS BINARY)';
+}
+
+/**
  * Returns user identifier thanks to his email.
  *
  * @param string $email
@@ -740,13 +758,11 @@ function get_userid_by_email($email)
 {
   global $conf;
 
-  $email = pwg_db_real_escape_string($email);
-
   $query = '
 SELECT
     '.$conf['user_fields']['id'].'
   FROM '.USERS_TABLE.'
-  WHERE UPPER('.$conf['user_fields']['email'].') = UPPER(\''.$email.'\')
+  WHERE '.get_sql_condition_email_equals($conf['user_fields']['email'], $email).'
 ;';
   $result = pwg_query($query);
 
@@ -1330,6 +1346,7 @@ function find_user_by_username_or_email($username_or_email)
 {
   global $conf;
 
+  $where_email = get_sql_condition_email_equals($conf['user_fields']['email'], $username_or_email);
   $username_or_email = pwg_db_real_escape_string($username_or_email);
 
   $query = '
@@ -1345,7 +1362,6 @@ FROM '.USERS_TABLE.' AS u
   WHERE ';
 
   $where_username = $conf['user_fields']['username'].' = \'' . $username_or_email . '\'';
-  $where_email = $conf['user_fields']['email'].' = \'' . $username_or_email . '\'';
 
   $user = pwg_db_fetch_assoc(pwg_query($query.$where_username))
     ?: pwg_db_fetch_assoc(pwg_query($query.$where_email));
