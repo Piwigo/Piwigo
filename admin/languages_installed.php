@@ -31,6 +31,8 @@ check_input_parameter('language', $_GET, false, '/^('.join('|', array_keys($lang
 
 if (isset($_GET['action']) and isset($_GET['language']) and is_webmaster())
 {
+  check_pwg_token();
+
   $page['errors'] = $languages->perform_action($_GET['action'], $_GET['language']);
 
   if (empty($page['errors']))
@@ -48,7 +50,13 @@ $tpl_languages = array();
 
 foreach($languages->fs_languages as $language_id => $language)
 {
-  $language['u_action'] = add_url_params($base_url, array('language' => $language_id));
+  $language['u_action'] = add_url_params(
+    $base_url,
+    array(
+      'language' => $language_id,
+      'pwg_token' => get_pwg_token(),
+      )
+    );
 
   if (in_array($language_id, array_keys($languages->db_languages)))
   {
