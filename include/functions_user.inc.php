@@ -2105,12 +2105,76 @@ UPDATE '.USER_INFOS_TABLE.'
 }
 
 /**
+ * Checks the value of a user preferences parameter. Core parameters have a
+ * known set of allowed values, other parameters (from plugins for example)
+ * are accepted as is, unless a plugin rejects them with the
+ * "userprefs_is_valid_param" trigger.
+ * @since 16.5
+ *
+ * @param string $param
+ * @param mixed $value
+ * @return bool
+ */
+function userprefs_is_valid_param($param, $value)
+{
+  $allowed_values = array(
+    'admin_theme' => array('clear', 'roma'),
+    'user-manager-view' => array('line', 'compact', 'tile'),
+    'plugin-manager-view' => array('classic', 'line', 'compact'),
+    );
+
+  $boolean_params = array(
+    'promote-mobile-apps',
+    'show_newsletter_subscription',
+    );
+
+  $positive_integer_params = array(
+    'user-manager-pagination',
+    'reset_password_forbidden_until',
+    );
+
+  if (isset($allowed_values[$param]))
+  {
+    $is_valid = in_array($value, $allowed_values[$param], true);
+  }
+  elseif (in_array($param, $boolean_params) or preg_match('/^show_whats_new_/', $param))
+  {
+    $is_valid = is_bool($value);
+  }
+  elseif (in_array($param, $positive_integer_params))
+  {
+    $is_valid = (is_int($value) or (is_string($value) and ctype_digit($value))) and $value > 0;
+  }
+  elseif ('gallery_search_filters' == $param)
+  {
+    $is_valid = is_array($value);
+    if ($is_valid)
+    {
+      foreach ($value as $field)
+      {
+        if (!is_string($field) or !preg_match('/^[a-zA-Z0-9_-]+$/', $field))
+        {
+          $is_valid = false;
+          break;
+        }
+      }
+    }
+  }
+  else
+  {
+    $is_valid = true;
+  }
+
+  return trigger_change('userprefs_is_valid_param', $is_valid, $param, $value);
+}
+
+/**
  * Add or update a user preferences parameter
  * @since 13
  *
  * @param string $param
- * @param string $value
- * @param boolean $updateGlobal update global *$conf* variable
+ * @param mixed $value
+ * @return bool false if the value is not valid for this parameter (nothing is saved)
  */
 function userprefs_update_param($param, $value)
 {
@@ -2126,9 +2190,16 @@ function userprefs_update_param($param, $value)
     $value = false;
   }
 
+  if (!userprefs_is_valid_param($param, $value))
+  {
+    return false;
+  }
+
   $user['preferences'][$param] = $value;
 
   userprefs_save();
+
+  return true;
 }
 
 /**

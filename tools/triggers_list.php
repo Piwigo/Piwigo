@@ -926,6 +926,13 @@ array(
   'infos' => '$comment_id is and int or an array of int',
 ),
 array(
+  'name' => 'userprefs_is_valid_param',
+  'type' => 'trigger_change',
+  'vars' => array('bool', 'is_valid', 'string', 'param', 'mixed', 'value'),
+  'files' => array('include\functions_user.inc.php (userprefs_is_valid_param)'),
+  'infos' => 'New in 16.5. Return false to reject the value of a user preferences parameter.',
+),
+array(
   'name' => 'user_init',
   'type' => 'trigger_notify',
   'vars' => array('array', 'user'),

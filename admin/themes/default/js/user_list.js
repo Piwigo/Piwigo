@@ -424,6 +424,7 @@ function set_view_selector(view_type) {
     dataType: "JSON",
     data: {
       param: 'user-manager-view',
+      pwg_token: pwg_token,
       value: view_type,
     }
   })
@@ -660,6 +661,7 @@ $('.pagination-per-page a').on('click',function () {
       type: "POST",
       data: {
           param: "user-manager-pagination",
+          pwg_token: pwg_token,
           value: parseInt($(this).html()),
           is_json: false,
       }

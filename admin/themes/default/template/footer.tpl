@@ -98,6 +98,7 @@ function hide_user_whats_new() {
     dataType: "JSON",
     data: {
       param: 'show_whats_new_{$WHATS_NEW_MAJOR_VERSION}',
+      pwg_token: '{$PWG_TOKEN}',
       value: false,
     }
   })
