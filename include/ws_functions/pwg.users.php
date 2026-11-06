@@ -664,6 +664,18 @@ function ws_users_preferences_set($params, &$service)
 {
   global $user;
 
+  if (get_pwg_token() != $params['pwg_token'])
+  {
+    return new PwgError(403, 'Invalid security token');
+  }
+
+  // the guest account is shared by all visitors, its preferences must not be
+  // editable by anonymous requests
+  if (is_a_guest())
+  {
+    return new PwgError(403, 'User must be logged in.');
+  }
+
   if (!preg_match('/^[a-zA-Z0-9_-]+$/', $params['param']))
   {
     return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid param name #'.$params['param'].'#');
@@ -675,7 +687,10 @@ function ws_users_preferences_set($params, &$service)
     $value = json_decode($value, true);
   }
 
-  userprefs_update_param($params['param'], $value, true);
+  if (!userprefs_update_param($params['param'], $value))
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, 'Invalid value for param #'.$params['param'].'#');
+  }
 
   return $user['preferences'];
 }

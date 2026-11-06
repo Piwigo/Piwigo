@@ -70,8 +70,8 @@ const status_to_str = {
   'guest': "{'user_status_guest'|translate}",
 }
 
-const view_selector = '{$view_selector}';
-const pagination = '{$pagination}';
+const view_selector = '{$view_selector|escape:javascript}';
+const pagination = '{$pagination|escape:javascript}';
 per_page = parseInt(pagination);
 
 months = [

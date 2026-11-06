@@ -396,6 +396,7 @@ $template->assign(
   'RELEASE_NOTE_URL' => $release_note_url,
   'WHATS_NEW_IMGS' => $whats_new_imgs,
   'DISPLAY_BELL' => $display_bell,
+  'PWG_TOKEN' => get_pwg_token(),
   )
 );
 

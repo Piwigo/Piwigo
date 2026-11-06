@@ -67,6 +67,7 @@ $(function () {
       dataType: "JSON",
       data: {
         param: 'promote-mobile-apps',
+        pwg_token: pwg_token,
         value: false,
       },
       success: function (res) {

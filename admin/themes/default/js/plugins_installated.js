@@ -426,6 +426,7 @@ function set_view_selector(view_type) {
     dataType: "JSON",
     data: {
       param: 'plugin-manager-view',
+      pwg_token: pwg_token,
       value: view_type,
     }
   })
