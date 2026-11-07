@@ -2103,6 +2103,36 @@ SELECT
   }
 }
 
+/**
+ * Deletes the oldest guest searches, keeping $conf['guest_searches_max'] of
+ * them.
+ * @since 16.5
+ */
+function purge_guest_searches()
+{
+  global $conf;
+
+  $query = '
+SELECT id
+  FROM '.SEARCH_TABLE.'
+  WHERE created_by = '.$conf['guest_id'].'
+  ORDER BY id DESC
+  LIMIT 1 OFFSET '.(int)$conf['guest_searches_max'].'
+;';
+  $ids = query2array($query, null, 'id');
+
+  if (count($ids) > 0)
+  {
+    $query = '
+DELETE
+  FROM '.SEARCH_TABLE.'
+  WHERE created_by = '.$conf['guest_id'].'
+    AND id <= '.$ids[0].'
+;';
+    pwg_query($query);
+  }
+}
+
 function save_search($rules, $forked_from=null)
 {
   global $user;
@@ -2120,6 +2150,13 @@ function save_search($rules, $forked_from=null)
       'forked_from' => $forked_from,
     )
   );
+
+  // guest searches are limited, to prevent unbounded growth of the search
+  // table. The purge happens on 1 search out of 100 on average.
+  if (is_a_guest() and 1 == mt_rand(1, 100))
+  {
+    purge_guest_searches();
+  }
 
   if (!is_a_guest() and !is_generic())
   {
