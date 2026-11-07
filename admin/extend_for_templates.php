@@ -26,10 +26,20 @@
 
 if (!defined('PHPWG_ROOT_PATH')) { die('Hacking attempt!'); }
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+if (!$conf['show_template_in_side_menu'])
+{
+  die('template extensions management is disabled');
+}
+
 check_status(ACCESS_ADMINISTRATOR);
 
 $tpl_extension = isset($conf['extents_for_templates']) ?
-      unserialize($conf['extents_for_templates']) : array();
+      unserialize($conf['extents_for_templates'], array('allowed_classes' => false)) : array();
+if (!is_array($tpl_extension))
+{
+  $tpl_extension = array();
+}
 $new_extensions = get_extents(); 
 
 /* Selective URLs keyword */
@@ -107,34 +117,43 @@ $available_templates = array_merge(
 
 if (isset($_POST['submit']))
 {
+  check_pwg_token();
+
+  // template-extension file, subdirectories can't contain dots (no "../")
+  check_input_parameter('reptpl', $_POST, true, '#^([a-zA-Z0-9_-]+/)*[a-zA-Z0-9_.-]+\.tpl$#');
+  check_input_parameter('original', $_POST, true, '/^([a-z_]+\.tpl|-{10})$/');
+  // URL keyword or category permalink (same characters as set_cat_permalink)
+  check_input_parameter('url', $_POST, true, '#^([a-zA-Z0-9_/-]+|-{10})$#');
+  // theme directory
+  check_input_parameter('bound', $_POST, true, '/^([a-zA-Z0-9_-]+|-{10})$/');
+
   $replacements = array();
   $i = 0;
   while (isset($_POST['reptpl'][$i]))
   {
     $newtpl = $_POST['reptpl'][$i];
-    $original = $_POST['original'][$i];
+    $original = $_POST['original'][$i] ?? '----------';
+    $url_keyword = $_POST['url'][$i] ?? '----------';
+    $bound_tpl = $_POST['bound'][$i] ?? '----------';
+
+    if (!isset($eligible_templates[$original]))
+    {
+      $original = '----------';
+    }
     $handle = $eligible_templates[$original];
-    $url_keyword = $_POST['url'][$i];
-    if ($url_keyword == '----------') $url_keyword = 'N/A';
-    $bound_tpl = $_POST['bound'][$i];
-    if ($bound_tpl == '----------') $bound_tpl = 'N/A';
-    if ($handle != 'N/A')
+    if ('----------' == $url_keyword) $url_keyword = 'N/A';
+    if ('----------' == $bound_tpl) $bound_tpl = 'N/A';
+    if ('N/A' != $handle)
     {
       $replacements[$newtpl] = array($handle, $url_keyword, $bound_tpl);
     }
     $i++;
   }
+
+  conf_update_param('extents_for_templates', $replacements);
   $conf['extents_for_templates'] = serialize($replacements);
   $tpl_extension = $replacements;
-  /* ecrire la nouvelle conf */
-  $query = '
-UPDATE '.CONFIG_TABLE.'
-  SET value = \''. $conf['extents_for_templates'] .'\'
-WHERE param = \'extents_for_templates\';';
-  if (pwg_query($query))
-  {
-    $page['infos'][] = l10n('Templates configuration has been recorded.');
-  }
+  $page['infos'][] = l10n('Templates configuration has been recorded.');
 }
 
 // +-----------------------------------------------------------------------+
@@ -160,6 +179,7 @@ $base_url = PHPWG_ROOT_PATH.'admin.php?page=extend_for_templates';
 $template->assign(
   array(
     'U_HELP' => get_root_url().'admin/popuphelp.php?page=extend_for_templates',
+    'PWG_TOKEN' => get_pwg_token(),
     ));
 ksort($tpl_extension);
 foreach ($tpl_extension as $file => $conditions)    
