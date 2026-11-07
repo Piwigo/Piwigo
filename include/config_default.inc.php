@@ -1100,7 +1100,7 @@ $conf['checksum_compute_blocksize'] = 50;
 $conf['quick_search_include_sub_albums'] = false;
 
 // guest_searches_max: each search creates a row in the search table. For
-// guests, only the most recent searches are kept, older ones are deleted
+// guests, only the most recently used searches are kept, others are deleted
 // (their URL no longer works).
 $conf['guest_searches_max'] = 10000;
 

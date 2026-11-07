@@ -368,7 +368,9 @@ CREATE TABLE `piwigo_search` (
   `created_by` MEDIUMINT(8) UNSIGNED,
   `forked_from` INT(10) UNSIGNED,
   `rules` text,
-  PRIMARY KEY  (`id`)
+  `last_used_on` DATETIME DEFAULT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `search_i1` (`created_by`, `last_used_on`)
 ) ENGINE=MyISAM;
 
 --
