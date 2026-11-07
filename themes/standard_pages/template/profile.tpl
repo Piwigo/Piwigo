@@ -13,8 +13,8 @@
 {combine_script id='common' load='footer' require='jquery' path='admin/themes/default/js/common.js'}
 {footer_script}
 let user = {
-  username: "{$USERNAME}",
-  email: "{$EMAIL}",
+  username: "{$USERNAME|escape:javascript}",
+  email: "{$EMAIL|escape:javascript}",
   nb_image_page: $('input[name="nb_image_page"]').val(),
   theme: $('select[name="theme"]').val(),
   language: $('select[name="language"]').val(),
