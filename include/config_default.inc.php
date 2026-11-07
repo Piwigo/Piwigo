@@ -1099,6 +1099,11 @@ $conf['checksum_compute_blocksize'] = 50;
 // _data/cache directory
 $conf['quick_search_include_sub_albums'] = false;
 
+// guest_searches_max: each search creates a row in the search table. For
+// guests, only the most recent searches are kept, older ones are deleted
+// (their URL no longer works).
+$conf['guest_searches_max'] = 10000;
+
 // default configuration for search filters. It will then be configurable
 // with the configuration page. Having this setting in this file avoids to
 // duplicate it in several files
