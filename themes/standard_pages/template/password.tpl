@@ -85,7 +85,7 @@
       <label for="username">{'Username'|translate}</label>
       <div class="row-flex input-container">
         <i class="gallery-icon-user-2"></i>
-        <input type="text" class="" type="text" name="username" id="username" size="25" value={$username} disabled  >
+        <input type="text" class="" type="text" name="username" id="username" size="25" value="{$username|escape:html}" disabled  >
       </div>
     </div>
     {/if}
