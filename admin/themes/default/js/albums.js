@@ -1,3 +1,14 @@
+// album names may contain HTML (allow_html_descriptions), the album manager
+// always displays them as text
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 $(document).ready(() => {
   const openUppercats = openCat == -1 ? [] : findAlbumById(data, openCat).uppercats.split(',');
   const new_data = data.map((a) => {
@@ -82,7 +93,7 @@ $(document).ready(() => {
         
         if (parentIsPrivate) {
           $.confirm({
-            title: str_are_you_sure.replace(/%s/g, event.move_info.moved_node.name),
+            title: str_are_you_sure.replace(/%s/g, () => escapeHtml(event.move_info.moved_node.name)),
             buttons: {
               confirm: {
                 text: str_yes_change_parent,
@@ -112,7 +123,7 @@ $(document).ready(() => {
     var node = $('.tree').tree('getNodeById', node_id);
     if (node) {
       $('.cat-move-order-popin').fadeIn();
-      $('.cat-move-order-popin .album-name').html(getPathNode(node));
+      $('.cat-move-order-popin .album-name').text(getPathNode(node));
       $('.cat-move-order-popin input[name=id]').val(node_id);
       $('input[name=simpleAutoOrder]').attr('value', str_sub_album_order);
     }
@@ -350,7 +361,7 @@ function createAlbumNode(node, li) {
     node.visble = 'false';
     title += '<span class="tiptip icon-cone" title="'+ tiptip_locked_album +'" style="font-size: 16px"></span>';
   }
-  title += '<p class="move-cat-title" title="'+node.name+'">%name%</p> <span class="icon-pencil"></span> </span>';
+  title += '<p class="move-cat-title" title="'+escapeHtml(node.name)+'">%name%</p> <span class="icon-pencil"></span> </span>';
   toggler_cont = "<div class='move-cat-toogler' data-id=%id%>%content%</div>";
   toggler_close = "<span class='icon-left-open'></span>";
   toggler_open = "<span class='icon-down-open'></span>";
@@ -406,7 +417,7 @@ function createAlbumNode(node, li) {
     cont.append($(icon.replace(/%icon%/g, 'icon-folder-open')));
   }
 
-  cont.append($(title.replace(/%name%/g, node.name)));
+  cont.append($(title.replace(/%name%/g, () => escapeHtml(node.name))));
 
   var colors = ["icon-red", "icon-blue", "icon-yellow", "icon-purple", "icon-green"];
   var colorId = Number(node.id)%5;
@@ -470,7 +481,7 @@ function isNumeric(num){
 
 function openAddAlbumPopIn(parentAlbumId) {
   if (parentAlbumId != 0) {
-    $("#AddAlbum .AddIconTitle span").html(add_sub_album_of.replace("%s", $(".tree").tree('getNodeById', parentAlbumId).name));
+    $("#AddAlbum .AddIconTitle span").html(add_sub_album_of.replace("%s", () => escapeHtml($(".tree").tree('getNodeById', parentAlbumId).name)));
   } else {
     $("#AddAlbum .AddIconTitle span").html(add_album_root_title)
   }
@@ -505,7 +516,7 @@ function closeAddAlbumPopIn() {
 
 function openRenameAlbumPopIn(replacedAlbumName) {
   $("#RenameAlbum").fadeIn();
-  $(".RenameAlbumTitle span").html(rename_item.replace("%s", replacedAlbumName))
+  $(".RenameAlbumTitle span").html(rename_item.replace("%s", () => escapeHtml(replacedAlbumName)))
   $(".RenameAlbumLabelUsername .user-property-input").val(replacedAlbumName);
   $(".RenameAlbumLabelUsername .user-property-input").focus();
 
@@ -559,10 +570,10 @@ function openDeleteAlbumPopIn(cat_to_delete) {
   $("#DeleteAlbum").fadeIn();
   node = $(".tree").tree('getNodeById', cat_to_delete);
   if (node.children.length == 0) {
-    $(".DeleteIconTitle span").html(delete_album_with_name.replace("%s", node.name));
+    $(".DeleteIconTitle span").html(delete_album_with_name.replace("%s", () => escapeHtml(node.name)));
   } else {
     nb_sub_cats = 0;
-    $(".DeleteIconTitle span").html(delete_album_with_subs.replace("%s", node.name).replace("%d", getAllSubAlbumsFromNode(node, nb_sub_cats)));
+    $(".DeleteIconTitle span").html(delete_album_with_subs.replace("%s", () => escapeHtml(node.name)).replace("%d", getAllSubAlbumsFromNode(node, nb_sub_cats)));
   }
 
   // Actually delete
