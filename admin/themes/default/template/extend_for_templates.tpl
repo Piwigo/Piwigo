@@ -27,6 +27,7 @@
     {/foreach}
   </table>
   <p>
+    <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
     <input type="submit" value="{'Submit'|@translate}" name="submit">
   </p>
 </form>

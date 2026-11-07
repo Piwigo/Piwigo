@@ -822,7 +822,9 @@ $conf['activity_display_connections'] = 'all';
 // dragging an album. In milliseconds. 3 seconds by default.
 $conf['album_move_delay_before_auto_opening'] = 3*1000;
 
-// This variable is used to show or hide the template tab in the side menu
+// This variable is used to show or hide the template tab in the side menu.
+// When false, the page itself (admin.php?page=extend_for_templates) is also
+// disabled. Template extensions already configured are still applied.
 $conf['show_template_in_side_menu'] = false;
 
 // Add last calculated cache size to Dashboard Storage chart if true.
