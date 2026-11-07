@@ -179,9 +179,18 @@ function parse_request()
 
   $req = ltrim($req, '/');
 
+  // no path traversal: the derivative path and the source path are both built
+  // from the request. Dot-only segments ("..", and "..." that Windows may
+  // normalize) and backslashes (a separator on Windows) are rejected.
+  if (false !== strpos($req, '\\'))
+  {
+    ierror('Invalid chars in request', 400);
+  }
+
   foreach (preg_split('#/+#', $req) as $token)
   {
     preg_match($conf['sync_chars_regex'], $token) or ierror('Invalid chars in request', 400);
+    preg_match('/^\.+$/', $token) and ierror('Invalid path in request', 400);
   }
 
   $page['derivative_path'] = PHPWG_ROOT_PATH.PWG_DERIVATIVE_DIR.$req;
@@ -458,9 +467,11 @@ if (!$need_generate)
 
 include_once(PHPWG_ROOT_PATH . 'admin/include/image.class.php');
 $page['coi'] = null;
+// only pictures in Piwigo themes and plugins directories are not registered
+// in the images table
 if (strpos($page['src_location'], '/pwg_representative/')===false
-    && strpos($page['src_location'], 'themes/')===false
-    && strpos($page['src_location'], 'plugins/')===false)
+    && 0 !== strpos($page['src_location'], './themes/')
+    && 0 !== strpos($page['src_location'], './plugins/'))
 {
   try
   {
