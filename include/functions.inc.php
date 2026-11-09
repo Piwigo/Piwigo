@@ -617,7 +617,8 @@ function pwg_activity($object, $object_id, $action, $details=array())
     $object_ids = array($object_id);
   }
 
-  if (isset($_REQUEST['method']))
+  // outside ws.php, $_REQUEST['method'] is not an API method (and not checked)
+  if (defined('IN_WS') and isset($_REQUEST['method']))
   {
     $details['method'] = $_REQUEST['method'];
   }

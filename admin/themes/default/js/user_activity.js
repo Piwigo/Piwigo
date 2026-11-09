@@ -484,10 +484,10 @@ function lineConstructor(line) {
     newLine.find(".detail-item-1").attr("title", "IP: " + line.ip_address);
 
     if (line.detailsType == "script") {
-        newLine.find(".detail-item-2").html(line.details.script);
+        newLine.find(".detail-item-2").text(line.details.script);
         newLine.find(".detail-item-2").attr('title', 'Script');
     } else if (line.detailsType == "method") {
-        newLine.find(".detail-item-2").html(line.details.method);
+        newLine.find(".detail-item-2").text(line.details.method);
         newLine.find(".detail-item-2").attr('title', 'API Method');
     }   
     
