@@ -183,6 +183,10 @@ GROUP BY author_id
 ;';
 
   $nb_authors_in = query2array($query);
+  foreach ($nb_authors_in as $i => $author)
+  {
+    $nb_authors_in[$i]['author'] = trigger_change('render_comment_author', $author['author']);
+  }
 
   return array(
     'summary' => $summary,
