@@ -2245,7 +2245,9 @@ function userprefs_get_param($param, $default_value=null)
 {
   global $user;
 
-  if (isset($user['preferences'][$param]))
+  // a value saved before the preferences were validated (eg an admin_theme
+  // pointing outside admin/themes) is ignored
+  if (isset($user['preferences'][$param]) and userprefs_is_valid_param($param, $user['preferences'][$param]))
   {
     return $user['preferences'][$param];
   }
