@@ -517,7 +517,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       return new PwgError(401, 'Access denied');
     }
 
-    if (!$this->isAuthorizedMethodForAPIKEY())
+    if (!$this->isAuthorizedMethodForAPIKEY($methodName))
     {
       return new PwgError(401, 'Access denied');
     }
@@ -685,7 +685,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
     return $res;
   }
 
-  function isAuthorizedMethodForAPIKEY()
+  function isAuthorizedMethodForAPIKEY($methodName)
   {
     global $conf;
 
@@ -698,7 +698,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       OR (isset($_SESSION['connected_with']) AND 'ws_session_login_api_key' === $_SESSION['connected_with'])
     )
     {
-      if (in_array($_REQUEST['method'], $conf['api_key_forbidden_methods']))
+      if (in_array($methodName, $conf['api_key_forbidden_methods']))
       {
         return false;
       }
