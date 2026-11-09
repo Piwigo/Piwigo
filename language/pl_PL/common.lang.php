@@ -550,10 +550,10 @@ $lang['Verification successful! You can now choose a new password.'] = 'Weryfika
 $lang['Verify'] = 'Weryfikuj';
 $lang['Your verification code'] = 'Twój kod weryfikacyjny';
 $lang['edit user preferences'] = 'edytuj preferencje użytkownika';
-$lang['An email has been sent with a verification code'] = 'Wysłano wiadomość e-mail z kodem weryfikacyjnym';
 $lang['Here is your verification code:'] = 'Oto twój kod weryfikacyjny:';
 $lang['ID copied.'] = 'Identyfikator skopiowany.';
 $lang['If this wasn\'t you, please change your password immediately or contact your webmaster.'] = 'Jeśli to nie byłeś ty, natychmiast zmień swoje hasło lub skontaktuj się ze swoim webmasterem.';
 $lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'Jeśli zmieniłeś hasło, ponieważ uważasz, że zostało skradzione, zalecamy wycofanie kluczy %d API <a href="%s">w swoim profilu</a>.';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'Jeśli nie otrzymasz wiadomości e-mail, skontaktuj się ze swoim webmasterem.';
 $lang['Invalid verification code'] = 'Nieprawidłowy kod weryfikacyjny';
+$lang['If your account exists, a verification code has been sent to your email address.'] = 'Jeśli Twoje konto istnieje, kod weryfikacyjny został wysłany na Twój adres e-mail.';

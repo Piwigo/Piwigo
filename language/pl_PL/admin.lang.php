@@ -1427,3 +1427,6 @@ $lang['Standard pages aren\'t activated, however you have %d active themes that 
 $lang['Standard pages header'] = 'Standardowy nagłówek stron';
 $lang['Use Piwigo logo'] = 'Użyj logo Piwigo';
 $lang['Use custom logo (png, jpeg or svg)'] = 'Użyj własne logo (png, jpeg lub svg)';
+$lang['Follow the update guide'] = 'Postępuj zgodnie z przewodnikiem aktualizacji';
+$lang['Two container updates are available'] = 'Dostępne są dwie aktualizacje kontenerów';
+$lang['You are about to delete %s groups, are you sure?'] = 'Masz zamiar usunąć %s grup, jesteś pewien?';
