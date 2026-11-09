@@ -608,7 +608,7 @@ SELECT
         fclose($handle);
         include_once(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
         $zip = new PclZip($archive);
-        if ($list = $zip->listContent())
+        if (($list = $zip->listContent()) and is_safe_archive_content($list))
         {
           foreach ($list as $file)
           {
