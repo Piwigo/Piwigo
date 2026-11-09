@@ -12,6 +12,12 @@ check_input_parameter('user_id', $_GET, false, PATTERN_ID);
 
 $edit_user = build_user( $_GET['user_id'], false );
 
+// only webmasters can edit the profile of other webmaster/admin users
+if (!is_webmaster() and $edit_user['id'] != $user['id'] and in_array($edit_user['status'], array('webmaster', 'admin')))
+{
+  access_denied();
+}
+
 if (!empty($_POST))
 {
   check_pwg_token();

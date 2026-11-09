@@ -2329,6 +2329,41 @@ function check_and_save_user_infos($params)
       );
     }
 
+    // only webmasters can change the username or email of other
+    // webmaster/admin users: with the email, an admin could take over a
+    // webmaster account through the lost password procedure
+    if (!is_webmaster() and $params['user_id'][0] != $user['id'])
+    {
+      $query = '
+SELECT
+    u.'.$conf['user_fields']['username'].' AS username,
+    u.'.$conf['user_fields']['email'].' AS email,
+    ui.status
+  FROM '.USERS_TABLE.' AS u
+    JOIN '.USER_INFOS_TABLE.' AS ui ON ui.user_id = u.'.$conf['user_fields']['id'].'
+  WHERE u.'.$conf['user_fields']['id'].' = '.$params['user_id'][0].'
+;';
+      $target_users = query2array($query);
+
+      if (isset($target_users[0]) and in_array($target_users[0]['status'], array('webmaster', 'admin')))
+      {
+        // the user manager always sends username and email, so we only
+        // reject actual changes (params are escaped, DB values are not)
+        if (
+          (!empty($params['username']) and stripslashes($params['username']) !== $target_users[0]['username'])
+          or (!empty($params['email']) and stripslashes($params['email']) !== $target_users[0]['email'])
+        )
+        {
+          return array(
+            'error' => array(
+              'code' => 403,
+              'message' => 'Only webmasters can change username or email of other "webmaster/admin" users'
+            )
+          );
+        }
+      }
+    }
+
     if (!empty($params['username']))
     {
       $user_id = get_userid($params['username']);
