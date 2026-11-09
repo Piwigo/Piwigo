@@ -110,6 +110,13 @@ include(PHPWG_ROOT_PATH . 'include/template.class.php');
 include(PHPWG_ROOT_PATH . 'include/cache.class.php');
 include(PHPWG_ROOT_PATH . 'include/Logger.class.php');
 
+if (defined('IN_WS'))
+{
+  // the API method name is recorded in the activity log, possibly before
+  // the web service checks it (automatic login in include/user.inc.php)
+  check_input_parameter('method', $_REQUEST, false, '/^[a-zA-Z0-9_.-]+$/');
+}
+
 $page['execution_uuid'] = generate_key(10);
 
 $persistent_cache = new PersistentFileCache();
