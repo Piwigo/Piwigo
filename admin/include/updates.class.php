@@ -560,7 +560,8 @@ class updates
       if (@filesize($filename))
       {
         $zip = new PclZip($filename);
-        if ($result = $zip->extract(PCLZIP_OPT_PATH, PHPWG_ROOT_PATH,
+        if (is_safe_archive_content($zip->listContent())
+            and $result = $zip->extract(PCLZIP_OPT_PATH, PHPWG_ROOT_PATH,
                                     PCLZIP_OPT_REMOVE_PATH, $remove_path,
                                     PCLZIP_OPT_SET_CHMOD, 0755,
                                     PCLZIP_OPT_REPLACE_NEWER))

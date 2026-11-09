@@ -62,6 +62,47 @@ function get_elapsed_time($start, $end)
 }
 
 /**
+ * Tells whether all files listed in a zip archive (as returned by
+ * PclZip::listContent) would be extracted inside the extraction directory.
+ * Archives with an absolute path or a ".." segment are rejected (zip slip).
+ *
+ * @since 16.5
+ * @param array $list
+ * @return bool
+ */
+function is_safe_archive_content($list)
+{
+  if (!is_array($list))
+  {
+    return false;
+  }
+
+  foreach ($list as $file)
+  {
+    foreach (array('filename', 'stored_filename') as $key)
+    {
+      if (!isset($file[$key]))
+      {
+        continue;
+      }
+
+      $path = str_replace('\\', '/', $file[$key]);
+
+      if (
+        0 === strpos($path, '/')
+        or preg_match('/^[a-zA-Z]:/', $path)
+        or preg_match('#(^|/)\.\.(/|$)#', $path)
+      )
+      {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+/**
  * returns the part of the string after the last "."
  *
  * @param string $filename
