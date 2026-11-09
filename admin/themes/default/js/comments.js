@@ -365,10 +365,11 @@ function commentsDisplayAuthors(nb_authors) {
   filterAuthor.empty();
   filterAuthor.append(commentsOptionsFiltersAuthor);
 
+  // author names come from visitors, they must be inserted as text
   nb_authors.forEach((a) => {
-    filterAuthor.append(`
-      <option value="${a.author_id}">${a.author} (${a.nb_authors})</option>
-      `);
+    filterAuthor.append(
+      $('<option>').val(a.author_id).text(`${a.author} (${a.nb_authors})`)
+    );
   });
 
   filterAuthor.off('change').on('change', function() {
