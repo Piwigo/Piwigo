@@ -789,6 +789,10 @@ class image_gd implements imageInterface
     elseif ($extension == 'webp' and $gd_info['WebP Support'])
     {
       $this->image = imagecreatefromwebp($source_filepath);
+      if (!$this->image)
+      {
+        die('[Image GD] unsupported WebP file');
+      }
     }
     else
     {
