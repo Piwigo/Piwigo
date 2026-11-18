@@ -462,3 +462,17 @@ $lang['If this wasn\'t you, please change your password immediately or contact y
 $lang['If you changed your password because you think it was stolen, we recommend revoking your %d API keys <a href="%s">in your profile</a>.'] = 'もしパスワードが盗まれた疑いがあってパスワードを変更した場合、 <a href="%s">ご自身のプロフィール</a>の%dのAPIキーを取り消しすることをお勧めします。';
 $lang['If you do not receive the email, please contact your webmaster.'] = 'メールを受信していない場合、ウェブマスターに連絡を取ってください。';
 $lang['Account'] = 'アカウント';
+$lang['Check your inbox'] = 'インボックスを確認する';
+$lang['Edit API Key'] = 'APIキーを編集する';
+$lang['Expert mode'] = 'エキスパートモード';
+$lang['Generate API Key'] = 'APIキーを生成する';
+$lang['%d visits'] = '訪問者数: %d';
+$lang['3xlarge'] = '3XL';
+$lang['4xlarge'] = '4XL';
+$lang['API Key has been successfully edited.'] = 'APIキーの変更に成功しました。';
+$lang['API Key has been successfully revoked.'] = 'APIキーの破棄に成功しました。';
+$lang['API Key name'] = 'APIキー名称';
+$lang['API Key not found'] = 'APIキーが見付かりませんでした';
+$lang['API Keys'] = 'APIキー';
+$lang['Album already selected'] = '既に選択されたアルバム';
+$lang['Albums found'] = '見付かったアルバム';
