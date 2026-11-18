@@ -3,7 +3,7 @@
 ## Prerequisites
 To contribute to project, you will need to install on your computer [Git](https://git-scm.com/) and to have a [Github account](https://github.com/join?source=header-home).
 
-If you don't really know how to use git, I will recommend you to check this [guide](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics). If you are comfortable with git and GitHub, just go to "Create a pull request" section.
+If you don't really know how to use git, I will recommend you to check this [guide](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F). If you are comfortable with git and GitHub, just go to "Create a pull request" section.
 
 ### How to configure Git
 
