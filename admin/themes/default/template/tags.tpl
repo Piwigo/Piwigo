@@ -56,7 +56,7 @@ if (!$.cookie("pwg_tags_per_page")) {
 
 {function name=tagContent}
 {function tagContent}
-    <p class='tag-name {($tag_raw_name !== $tag_name) ? 'icon-globe' : ''}' data-rawname="{$tag_raw_name}">{$tag_name}</p>
+    <p class='tag-name {($tag_raw_name !== $tag_name) ? 'icon-globe' : ''}' data-rawname="{$tag_raw_name}">{$tag_name} ({$tag_count})</p>
     <a class="icon-ellipsis-vert showOptions"></a>
     <div class="tag-dropdown-block dropdown">
       <div class="dropdown-content">
