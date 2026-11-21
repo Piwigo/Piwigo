@@ -159,7 +159,7 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 elseif (isset($_POST['submitAdd']))
 {
   $output_create = create_virtual_category(
-    $_POST['virtual_name'],
+    strip_tags($_POST['virtual_name']),
     @$_GET['parent_id']
   );
 
