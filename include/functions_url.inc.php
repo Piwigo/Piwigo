@@ -14,7 +14,11 @@
  */
 function get_root_url()
 {
-  global $page;
+  global $page, $conf;
+  if (!empty($conf['gallery_url']) and (url_is_remote($conf['gallery_url']) or $conf['gallery_url'][0]=='/') )
+  {
+  	return $conf['gallery_url'];
+  }
   if ( ($root_url = @$page['root_path']) == null )
   {// TODO - add HERE the possibility to call PWG functions from external scripts
     $root_url = PHPWG_ROOT_PATH;
