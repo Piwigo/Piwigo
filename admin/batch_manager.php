@@ -515,38 +515,56 @@ SELECT
       $duplicates_on_fields[] = 'height';
     }
 
-    // TODO improve this algorithm, because GROUP_CONCAT is truncated at
-    // 1024 chars. So if you have more than ~250 duplicates for a given
-    // combination of "duplicates_on_fields" you won't get all the
-    // duplicates.
-
-    $query = '
+    if (!empty($duplicates_on_fields))
+    {
+      $query = '
 SELECT
-    GROUP_CONCAT(id) AS ids
+    id,
+    '.implode(",\n    ", $duplicates_on_fields).'
   FROM '.IMAGES_TABLE;
 
-    if (in_array('md5sum', $duplicates_on_fields))
-    {
+      if (in_array('md5sum', $duplicates_on_fields))
+      {
+        $query.= '
+  WHERE md5sum IS NOT NULL';
+      }
+
       $query.= '
-  WHERE md5sum IS NOT NULL
-';
-    }
-
-    $query.= '
-  GROUP BY '.implode(',', $duplicates_on_fields).'
-  HAVING COUNT(*) > 1
 ;';
-    $array_of_ids_string = query2array($query, null, 'ids');
+      $photos = query2array($query);
 
-    $ids = array();
-    
-    foreach ($array_of_ids_string as $ids_string)
-    {
-      $ids_string = rtrim($ids_string,',');
-      $ids = array_merge($ids, explode(',', $ids_string));
+      $duplicate_groups = array();
+      foreach ($photos as $photo)
+      {
+        $duplicate_values = array();
+        foreach ($duplicates_on_fields as $field)
+        {
+          $duplicate_values[$field] = $photo[$field];
+        }
+
+        $duplicate_key = serialize($duplicate_values);
+        if (!isset($duplicate_groups[$duplicate_key]))
+        {
+          $duplicate_groups[$duplicate_key] = array();
+        }
+        $duplicate_groups[$duplicate_key][] = $photo['id'];
+      }
+
+      $ids = array();
+      foreach ($duplicate_groups as $duplicate_ids)
+      {
+        if (count($duplicate_ids) > 1)
+        {
+          $ids = array_merge($ids, $duplicate_ids);
+        }
+      }
+
+      $filter_sets[] = $ids;
     }
-    
-    $filter_sets[] = $ids;
+    else
+    {
+      $filter_sets[] = array();
+    }
 
     break;
 

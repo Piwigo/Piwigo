@@ -35,4 +35,4 @@ Piwigo is widely driven by its community; if you want to improve the code, fork 
 
 ## License
 
-Piwigo is released under the GPL v2 license. See our [Copying details](https://github.com/Piwigo/Piwigo/blob/master/COPYING.txt).
+Piwigo is released under the GPL v2 or later license. See our [Copying details](https://github.com/Piwigo/Piwigo/blob/master/COPYING.txt).
