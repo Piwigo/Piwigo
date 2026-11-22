@@ -29,7 +29,7 @@ if (isset($conf['session_save_handler'])
   and ($conf['session_save_handler'] == 'db')
   and defined('PHPWG_INSTALLED'))
 {
-  session_set_save_handler(new PwgSession());
+  (new PwgSession());
 
   if (function_exists('ini_set'))
   {
