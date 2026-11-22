@@ -135,6 +135,7 @@ $lang['Adobe Photoshop Lightroom is a photography software designed to manage la
 $lang['Advanced features'] = "Advanced features";
 $lang['Album "%s" has been added'] = 'Album "%s" has been added';
 $lang['Album "%s" now contains %d photos'] = 'Album "%s" now contains %d photos';
+$lang['Album added'] = 'Album added';
 $lang['Album list management'] = "Album list management";
 $lang['Album manual order was saved'] = "Album manual order was saved";
 $lang['Album name'] = 'Album name';
