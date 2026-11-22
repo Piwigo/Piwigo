@@ -519,47 +519,32 @@ SELECT
     {
       $query = '
 SELECT
-    id,
-    '.implode(",\n    ", $duplicates_on_fields).'
-  FROM '.IMAGES_TABLE;
+    i.id
+  FROM '.IMAGES_TABLE.' i
+  INNER JOIN
+  (
+    SELECT
+      '.implode(",\n      ", $duplicates_on_fields).'
+    FROM '.IMAGES_TABLE;
 
       if (in_array('md5sum', $duplicates_on_fields))
       {
         $query.= '
-  WHERE md5sum IS NOT NULL';
+    WHERE md5sum IS NOT NULL';
       }
 
       $query.= '
+    GROUP BY '.implode(',', $duplicates_on_fields).'
+    HAVING COUNT(*) > 1
+  ) duplicate_images
+  ON '.implode('
+  AND ', array_map(function($field)
+  {
+    return '(i.'.$field.' = duplicate_images.'.$field.'
+    OR (i.'.$field.' IS NULL AND duplicate_images.'.$field.' IS NULL))';
+  }, $duplicates_on_fields)).'
 ;';
-      $photos = query2array($query);
-
-      $duplicate_groups = array();
-      foreach ($photos as $photo)
-      {
-        $duplicate_values = array();
-        foreach ($duplicates_on_fields as $field)
-        {
-          $duplicate_values[$field] = $photo[$field];
-        }
-
-        $duplicate_key = serialize($duplicate_values);
-        if (!isset($duplicate_groups[$duplicate_key]))
-        {
-          $duplicate_groups[$duplicate_key] = array();
-        }
-        $duplicate_groups[$duplicate_key][] = $photo['id'];
-      }
-
-      $ids = array();
-      foreach ($duplicate_groups as $duplicate_ids)
-      {
-        if (count($duplicate_ids) > 1)
-        {
-          $ids = array_merge($ids, $duplicate_ids);
-        }
-      }
-
-      $filter_sets[] = $ids;
+      $filter_sets[] = query2array($query, null, 'id');
     }
     else
     {
