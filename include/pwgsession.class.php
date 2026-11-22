@@ -1,6 +1,11 @@
 <?php
 // see https://php.watch/versions/8.4/session_set_save_handler-alt-signature-deprecated
-class PwgSession implements SessionHandlerInterface {
+class PwgSession implements 
+  
+  // warning class
+  SessionHandlerInterface 
+  
+{
   public function open(string $path, string $name): bool
   {
     return pwg_session_open($path, $name);
