@@ -6,6 +6,8 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+if (!function_exists('xmlrpc_encode'))
+{
 function xmlrpc_encode($data)
 {
   switch (gettype($data))
@@ -43,6 +45,7 @@ function xmlrpc_encode($data)
       }
       return $return;
   }
+}
 }
 
 class PwgXmlRpcEncoder extends PwgResponseEncoder
