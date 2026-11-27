@@ -259,7 +259,7 @@ function make_picture_url($params)
       if ( isset($params['image_file']) )
       {
         $fname_wo_ext = get_filename_wo_extension($params['image_file']);
-        if ( ord($fname_wo_ext)>ord('9') or !preg_match('/^\d+(-|$)/', $fname_wo_ext) )
+        if ( ord($fname_wo_ext[0])>ord('9') or !preg_match('/^\d+(-|$)/', $fname_wo_ext) )
         {
           $url .= $fname_wo_ext;
           break;
