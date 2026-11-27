@@ -50,7 +50,7 @@ rm -rf /tmp/$version/piwigo/.git
 
 cd plugins
 
-for plugin in TakeATour AdminTools LocalFilesEditor LanguageSwitch
+for plugin in LocalFilesEditor
 do
   cd /tmp/$version/piwigo/plugins
 
@@ -79,7 +79,7 @@ done
 # | themes                                                                   |
 # +--------------------------------------------------------------------------+
 
-for theme in modus elegant smartpocket
+for theme in modus
 do
   cd /tmp/$version/piwigo/themes
 
