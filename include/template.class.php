@@ -1067,7 +1067,8 @@ var s,after = document.getElementsByTagName(\'script\')[document.getElementsByTa
           $this->smarty->registerFilter($type, $callback);
         }
       }
-      $this->smarty->compile_id .= '.'.base_convert(hash("crc32b", $compile_id), 16, 36);
+      $this->smarty->compile_id .= '.'
+        (hash("crc32b", $compile_id), 16, 36);
     }
   }
 
@@ -1944,7 +1945,8 @@ final class FileCombiner
     if (count($pending)>1)
     {
       $key = join('>', $key);
-      $file = PWG_COMBINED_DIR . base_convert(hash("crc32b", $key), 16, 36) . '.' . $this->type;
+      $file = PWG_COMBINED_DIR .
+        (hash("crc32b", $key), 16, 36) . '.' . $this->type;
       if ($force || !file_exists(PHPWG_ROOT_PATH.$file) )
       {
         $output = '';
