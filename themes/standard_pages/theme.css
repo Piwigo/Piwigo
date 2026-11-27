@@ -718,12 +718,18 @@ p.error-message,
 .setup-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  align-items: center;
+  gap: 15px;
 }
 
 .setup-buttons .btn-main {
   margin-top: 0;
   padding: 10px 35px;
+}
+
+.setup-buttons .btn-cancel:hover,
+.setup-buttons .btn-cancel:focus-visible {
+  text-decoration: underline;
 }
 
 .install-section .field-description {

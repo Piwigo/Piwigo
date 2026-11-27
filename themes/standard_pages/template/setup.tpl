@@ -121,7 +121,7 @@ const setup_str_error = "{'an error happened'|translate|escape:'javascript'}";
       </div>
 
       <div class="setup-buttons">
-        <input type="submit" name="skip" value="{'Skip'|translate}" class="btn btn-main btn-secondary">
+        <input type="submit" name="skip" value="{'Skip'|translate}" class="btn btn-cancel">
         <input type="submit" name="next" value="{'Continue'|translate}" class="btn btn-main">
       </div>
     </div>
