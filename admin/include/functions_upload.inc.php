@@ -994,7 +994,7 @@ function pwg_check_real_extension($source_filepath, $original_filename, $die_on_
 
   $finfo = finfo_open(FILEINFO_MIME_TYPE);
   $finfo_type = finfo_file($finfo, $source_filepath);
-  finfo_close($finfo);
+  unset($finfo);
 
   $original_extension = strtolower(get_extension($original_filename));
 
