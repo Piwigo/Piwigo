@@ -25,6 +25,8 @@ html{
 #theIdentificationPage,
 #theRegisterPage,
 #thePasswordPage,
+#theInstallPage,
+#theSetupPage,
 #theProfilePage{
   width:100%;
   height:100%;
@@ -36,6 +38,8 @@ html{
 #theIdentificationPage #the_page,
 #theRegisterPage #the_page,
 #thePasswordPage #the_page,
+#theInstallPage #the_page,
+#theSetupPage #the_page,
 #theProfilePage #the_page{
   min-height:100vh;
   height:100%;
@@ -54,7 +58,8 @@ html{
 #login-form,
 #register-form,
 #password-form,
-.profile-section{
+.profile-section,
+.install-section{
   border-radius:15px;
   max-width:400px;
   width:75%;
@@ -275,6 +280,8 @@ a.btn-main{
 #theIdentificationPage a,
 #theRegisterPage a,
 #thePasswordPage a,
+#theInstallPage a,
+#theSetupPage a,
 #theProfilePage a{
   text-decoration:underline;
 }
@@ -282,6 +289,8 @@ a.btn-main{
 #theIdentificationPage a:hover,
 #theRegisterPage a:hover,
 #thePasswordPage a:hover,
+#theInstallPage a:hover,
+#theSetupPage a:hover,
 #theProfilePage a:hover{
   border-bottom:none;
 }
@@ -305,6 +314,8 @@ a.btn-main{
 }
 
 #theIdentificationPage #header-options .toggle-mode,
+#theInstallPage #header-options .toggle-mode,
+#theSetupPage #header-options .toggle-mode,
 #theProfilePage #header-options .toggle-mode{
   cursor:pointer;
 }
@@ -440,6 +451,449 @@ p.error-message,
 
 #account-section {
   margin-top: 25px;
+}
+
+.install-section {
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+#logo-section + .install-section {
+  margin-top: 50px;
+}
+
+.install-section h1 {
+  font-size: 24px;
+}
+
+.install-section h1:last-child {
+  margin-bottom: 0;
+}
+
+#install-form,
+#setup-form {
+  padding-bottom: 50px;
+}
+
+#theSetupPage .install-section {
+  max-width: 860px;
+}
+
+.setup-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.setup-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 180px 195px auto;
+  margin-bottom: 0;
+  padding: 15px 45px 15px 15px;
+  border-left-width: 4px;
+  border-left-style: solid;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.setup-card:has(input:checked) {
+  outline-width: 1px;
+  outline-style: solid;
+}
+
+.setup-card input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.setup-card-select {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.setup-card-select.round {
+  border-radius: 50%;
+}
+
+.setup-card input:checked + .setup-card-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.5 4.5 8.5-9.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.setup-card input:focus-visible + .setup-card-select {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: 2px;
+}
+
+.setup-card-locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.setup-card-loading {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.setup-card-screenshot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  font-size: 40px;
+}
+
+.setup-card-screenshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.setup-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin-left: 15px;
+}
+
+.setup-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.setup-card-state,
+.setup-card-error {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.setup-card-error {
+  font-weight: 700;
+}
+
+.setup-card-error:empty,
+.setup-card-state:empty {
+  display: none;
+}
+
+.setup-card-description {
+  min-width: 0;
+  margin-left: 15px;
+}
+
+.setup-card-description-text {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  line-clamp: 8;
+}
+
+.setup-cards-themes {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.setup-card-theme {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 0 0 10px 0;
+  border-left-width: 0;
+  border-radius: 0;
+}
+
+.setup-card-theme .setup-card-screenshot {
+  width: 200px;
+  height: 200px;
+}
+
+.setup-card-theme .setup-card-info {
+  margin: 10px 10px 0 10px;
+}
+
+.setup-card-theme .setup-card-name {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+@media only screen and (max-width: 768px) {
+  .setup-card {
+    grid-template-columns: 110px auto;
+    row-gap: 10px;
+  }
+
+  .setup-card-screenshot {
+    width: 110px;
+    height: 110px;
+  }
+
+  .setup-card-theme {
+    width: calc(50% - 8px);
+  }
+
+  .setup-card-theme .setup-card-screenshot {
+    width: 100%;
+    height: 140px;
+  }
+
+  .setup-card-description {
+    grid-column: 1 / -1;
+    margin-left: 0;
+  }
+}
+
+.install-section + .install-help {
+  margin-top: 30px;
+}
+
+.install-section .success-message {
+  width: auto;
+  margin: 0 0 25px 0;
+  text-align: left;
+}
+
+.setup-actions {
+  max-width: 860px;
+  width: 75%;
+  margin: 20px auto 0 auto;
+  padding: 0 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .setup-actions {
+    width: auto;
+    margin: 20px 15px 0 15px;
+    padding: 0 20px;
+  }
+}
+
+.setup-progress-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.setup-progress-bar.visible {
+  display: flex;
+}
+
+.setup-progress-bar progress {
+  flex: 1;
+  height: 10px;
+  accent-color: #ff7700;
+}
+
+.setup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.setup-buttons .btn-main {
+  margin-top: 0;
+  padding: 10px 35px;
+}
+
+.install-section .field-description {
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.install-section .install-error {
+  margin-bottom: 25px;
+}
+
+.install-section .install-error p {
+  text-align: left;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.install-section .error-message {
+  position: static;
+  margin: -20px 0 8px 0;
+  font-size: 12px;
+}
+
+.install-options .option {
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.install-options .option-label {
+  font-weight: 400;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.install-options .switch input:focus-visible + .slider {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: 2px;
+}
+
+.install-options .install-tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.install-options .install-tooltip:hover::after {
+  bottom: calc(100% + 8px);
+  left: calc(50% - 135px);
+  width: 250px;
+  font-family: 'Open_Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  z-index: 1;
+}
+
+.install-submit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.install-submit .btn-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 35px;
+}
+
+.install-submit .btn-main.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.install-submit-loader {
+  display: none;
+  animation: install-spin 1s linear infinite;
+}
+
+.install-submit .btn-main.loading .install-submit-loader {
+  display: inline-block;
+}
+
+@keyframes install-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.install-help {
+  text-align: center;
+  font-size: 12px;
+  margin: 0 15px 50px 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .install-section {
+    width: auto;
+    max-width: none;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 30px 20px;
+  }
+}
+
+@keyframes install-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.install-animate #logo-section,
+.install-animate .install-section,
+.install-animate .install-help {
+  animation: install-fade-in 500ms ease-out both;
+}
+
+.install-animate #logo-section + .install-section {
+  animation-delay: 120ms;
+}
+
+.install-animate #install-form .install-section:nth-child(1) {
+  animation-delay: 240ms;
+}
+
+.install-animate #install-form .install-section:nth-child(2) {
+  animation-delay: 360ms;
+}
+
+.install-animate #install-form .install-section:nth-child(3) {
+  animation-delay: 480ms;
+}
+
+.install-animate .install-help {
+  animation-delay: 600ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .install-animate #logo-section,
+  .install-animate .install-section,
+  .install-animate .install-help {
+    animation: none;
+  }
+}
+
+.install-requirements {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.install-requirements li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.install-requirements .requirement-label {
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .profile-section .title {

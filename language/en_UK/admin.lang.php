@@ -1488,5 +1488,11 @@ $lang['Show people in the gallery'] = 'Show people in the gallery';
 $lang['Only users in specific groups'] = 'Only users in specific groups';
 $lang['Limited by the People permission in General'] = 'Limited by the People permission in General';
 $lang['Global search'] = 'Global search';
+$lang['Gallery setup'] = 'Gallery setup';
+$lang['Skip'] = 'Skip';
+$lang['Skip the whole setup'] = 'Skip the whole setup';
+$lang['Already installed and activated'] = 'Already installed and activated';
+$lang['Already installed'] = 'Already installed';
+$lang['Continue'] = 'Continue';
 
 // Leave this line empty

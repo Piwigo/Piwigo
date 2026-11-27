@@ -1495,5 +1495,11 @@ $lang['Show people in the gallery'] = 'Afficher les personnes dans la galerie';
 $lang['Only users in specific groups'] = 'Uniquement les utilisateurs de certains groupes';
 $lang['Limited by the People permission in General'] = 'Limité par la permission People dans Général';
 $lang['Global search'] = 'Recherche globale';
+$lang['Gallery setup'] = 'Configuration de la galerie';
+$lang['Skip'] = 'Passer';
+$lang['Skip the whole setup'] = 'Passer toute la configuration';
+$lang['Already installed and activated'] = 'Déjà installé et activé';
+$lang['Already installed'] = 'Déjà installé';
+$lang['Continue'] = 'Continuer';
 
 // Leave this line empty

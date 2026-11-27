@@ -68,6 +68,8 @@ input[type='radio'] {
 #theIdentificationPage .light,
 #theRegisterPage .light,
 #thePasswordPage .light,
+#theInstallPage .light,
+#theSetupPage .light,
 #theProfilePage .light{
   background: linear-gradient(75.69deg, #FFEACF 7.64%, #FFFAF3 77.87%);
 }
@@ -76,6 +78,7 @@ input[type='radio'] {
 .light #register-form,
 .light #password-form,
 .light #lang-select #other-languages,
+.light .install-section,
 .light .profile-section,
 .light .slider:before,
 .light .body-modal,
@@ -86,6 +89,8 @@ input[type='radio'] {
 #theIdentificationPage .light a,
 #theRegisterPage .light a,
 #thePasswordPage .light a,
+#theInstallPage .light a:not(.close-modal),
+#theSetupPage .light a:not(.close-modal),
 #theProfilePage .light a:not(.close-modal),
 .light h1,
 .light .input-container input,
@@ -94,10 +99,13 @@ input[type='radio'] {
 .light .input-container textarea,
 .light .secondary-links,
 .light .properties label,
+.light .install-section label,
 .light .profile-section label,
 .light .properties i,
+.light .install-section i,
 .light .profile-section i,
 .light #password-form p,
+.light .install-section p,
 .light .profile-section p,
 .light #lang-select #other-languages span,
 .light .btn-cancel,
@@ -108,6 +116,8 @@ input[type='radio'] {
 #theIdentificationPage .light a:hover,
 #theRegisterPage .light a:hover,
 #thePasswordPage .light a:hover,
+#theInstallPage .light a:hover,
+#theSetupPage .light a:hover,
 #theProfilePage .light a:hover{
   color:#ff7700;
 }
@@ -202,6 +212,8 @@ input[type='radio'] {
 #theIdentificationPage .dark,
 #theRegisterPage .dark,
 #thePasswordPage .dark,
+#theInstallPage .dark,
+#theSetupPage .dark,
 #theProfilePage .dark{
   background: linear-gradient(75.69deg, #1B1B1D 7.64%, #2F2F2F 77.87%);
 }
@@ -209,6 +221,7 @@ input[type='radio'] {
 .dark #login-form,
 .dark #register-form,
 .dark #password-form,
+.dark .install-section,
 .dark .profile-section, 
 .dark .body-modal {
   background-color:#3C3C3C;
@@ -217,6 +230,8 @@ input[type='radio'] {
 #theIdentificationPage .dark a,
 #theRegisterPage .dark a,
 #thePasswordPage .dark a,
+#theInstallPage .dark a,
+#theSetupPage .dark a,
 #theProfilePage .dark a:not(.close-modal).dark #header-options a,
 .dark #header-options .toggle-mode,
 .dark #selected-language-container{
@@ -230,10 +245,13 @@ input[type='radio'] {
 .dark .input-container textarea,
 .dark .secondary-links,
 .dark .properties label,
+.dark .install-section label,
 .dark .profile-section label,
 .dark .properties i,
+.dark .install-section i,
 .dark .profile-section i,
 .dark #password-form p,
+.dark .install-section p,
 .dark .profile-section p,
 .dark #lang-select #other-languages span,
 .dark .btn-cancel,
@@ -244,6 +262,8 @@ input[type='radio'] {
 #theIdentificationPage .dark a:hover,
 #theRegisterPage .dark a:hover,
 #thePasswordPage .dark a:hover,
+#theInstallPage .dark a:hover,
+#theSetupPage .dark a:hover,
 #theProfilePage .dark a:hover,
 .dark #lang-select #other-languages span{
   color:#ff7700;
@@ -334,4 +354,167 @@ input[type='radio'] {
 
 .dark .btn-revoked {
   background-color: #BE4949 !important;
+}
+.light .install-requirements {
+  color:#3C3C3C;
+}
+
+.light .install-requirements .requirement-ok i {
+  color:#2E8B57;
+}
+
+.light .install-requirements .requirement-warn i {
+  color:#C45500;
+}
+
+.light .install-requirements .requirement-fail i {
+  color:#D0342C;
+}
+
+.dark .install-requirements {
+  color:#D6D6D6;
+}
+
+.dark .install-requirements .requirement-ok i {
+  color:#6FCF97;
+}
+
+.dark .install-requirements .requirement-warn i {
+  color:#FFA94D;
+}
+
+.dark .install-requirements .requirement-fail i {
+  color:#FF7B72;
+}
+
+.light .install-help {
+  color:#3C3C3C;
+}
+
+.dark .install-help {
+  color:#D6D6D6;
+}
+
+.light .install-options .switch input:focus-visible + .slider {
+  outline-color:#3C3C3C;
+}
+
+.dark .install-options .switch input:focus-visible + .slider {
+  outline-color:#FFFFFF;
+}
+
+.dark .install-options .slider {
+  background-color:#8A8A8A;
+}
+
+.dark .install-options .slider:before {
+  background-color:#3C3C3C;
+}
+
+.light .install-section .install-error p,
+.light .install-section .install-error i,
+.dark .install-section .install-error p,
+.dark .install-section .install-error i {
+  color:#FFFFFF;
+}
+
+.light .setup-card {
+  background-color:#F7F7F7;
+  border-left-color:#FFA646;
+  box-shadow:1px 1px 0px 1px #E0E0E0;
+}
+
+.dark .setup-card {
+  background-color:#2A2A2A;
+  border-left-color:#FFA646;
+  box-shadow:1px 1px 0px 1px #1F1F1F;
+}
+
+.light .setup-card-theme {
+  box-shadow:0px 2px 1px #00000024;
+}
+
+.dark .setup-card-theme {
+  box-shadow:0px 2px 1px #00000066;
+}
+
+.light .setup-card-theme .setup-card-select,
+.dark .setup-card-theme .setup-card-select {
+  background-color:#FFFFFF;
+}
+
+.light .setup-card:has(input:checked),
+.dark .setup-card:has(input:checked) {
+  outline-color:#ff7700;
+}
+
+.light .setup-card-select,
+.dark .setup-card-select {
+  background-color:transparent;
+  border-color:#ff7700;
+}
+
+.light .setup-card input:checked + .setup-card-select,
+.dark .setup-card input:checked + .setup-card-select {
+  background-color:#ff7700;
+  border-color:#ff7700;
+}
+
+.light .setup-card input:focus-visible + .setup-card-select {
+  outline-color:#3C3C3C;
+}
+
+.dark .setup-card input:focus-visible + .setup-card-select {
+  outline-color:#FFFFFF;
+}
+
+.light .setup-card-screenshot {
+  background-color:#E8E8E8;
+}
+
+.dark .setup-card-screenshot {
+  background-color:#202020;
+}
+
+.light .setup-card .setup-card-state i {
+  color:#2E8B57;
+}
+
+.dark .setup-card .setup-card-state i {
+  color:#6FCF97;
+}
+
+.light .setup-card-error {
+  color:#D0342C;
+}
+
+.dark .setup-card-error {
+  color:#FF7B72;
+}
+
+.light .setup-progress-bar {
+  color:#3C3C3C;
+}
+
+.dark .setup-progress-bar {
+  color:#D6D6D6;
+}
+
+.light .install-section .install-submit-loader,
+.dark .install-section .install-submit-loader {
+  color:#FFFFFF;
+}
+
+.light .install-section .success-message,
+.light .install-section .success-message i {
+  color:#2E7D32 !important;
+}
+
+.dark .install-section .success-message {
+  background-color:#2C6B5C;
+}
+
+.dark .install-section .success-message,
+.dark .install-section .success-message i {
+  color:#E6FFF8 !important;
 }

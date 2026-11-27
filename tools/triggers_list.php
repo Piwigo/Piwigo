@@ -272,6 +272,12 @@ array(
   'files' => array('include\functions.inc.php (get_pwg_themes)'),
 ),
 array(
+  'name' => 'get_setup_steps',
+  'type' => 'trigger_change',
+  'vars' => array('array', 'steps'),
+  'files' => array('install/install_extra.php'),
+),
+array(
   'name' => 'get_thumbnail_title',
   'type' => 'trigger_change',
   'vars' => array('string', 'title', 'array', 'info'),

@@ -301,6 +301,15 @@ else
   $template = new Template(PHPWG_ROOT_PATH.'themes', $theme );
 }
 
+if (
+  isset($conf['setup_step'])
+  && is_webmaster()
+  && !in_array(script_basename(), array('install', 'ws', 'identification', 'password', 'popuphelp'))
+  )
+{
+  redirect(get_root_url().'install.php?configuration');
+}
+
 if ( !isset($conf['no_photo_yet']) )
 {
   include(PHPWG_ROOT_PATH.'include/no_photo_yet.inc.php');
