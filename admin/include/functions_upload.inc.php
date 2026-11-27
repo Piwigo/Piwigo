@@ -978,7 +978,14 @@ function need_resize($image_filepath, $max_width, $max_height)
 
 function pwg_image_infos($path)
 {
-  list($width, $height) = getimagesize($path);
+  $width = null;
+  $height = null;
+
+  $image_size = getimagesize($path);
+  if (false !== $image_size)
+  {
+    list($width, $height) = $image_size;
+  }
   $filesize = floor(filesize($path)/1024);
 
   return array(

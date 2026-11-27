@@ -268,7 +268,13 @@ class pwg_image
 
   static function get_rotation_angle($source_filepath)
   {
-    list($width, $height, $type) = getimagesize($source_filepath);
+    $image_size = getimagesize($source_filepath);
+    if (false === $image_size)
+    {
+      return null;
+    }
+
+    list($width, $height, $type) = $image_size;
     if (IMAGETYPE_JPEG != $type)
     {
       return null;
