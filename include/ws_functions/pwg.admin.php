@@ -229,7 +229,10 @@ SELECT COUNT(*)
   $items = array();
   foreach ($people as $person)
   {
-    $cover = $covers[ $person['cover_image_person_id'] ] ?? null;
+    //$cover = $covers[ $person['cover_image_person_id'] ] ?? null;
+    $cover = $person['cover_image_person_id']
+      ? ($covers[ $person['cover_image_person_id'] ] ?? null)
+      : null;
 
     $items[] = array(
       'id' => $person['id'],
