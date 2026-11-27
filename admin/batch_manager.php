@@ -515,38 +515,41 @@ SELECT
       $duplicates_on_fields[] = 'height';
     }
 
-    // TODO improve this algorithm, because GROUP_CONCAT is truncated at
-    // 1024 chars. So if you have more than ~250 duplicates for a given
-    // combination of "duplicates_on_fields" you won't get all the
-    // duplicates.
-
-    $query = '
+    if (!empty($duplicates_on_fields))
+    {
+      $query = '
 SELECT
-    GROUP_CONCAT(id) AS ids
-  FROM '.IMAGES_TABLE;
+    i.id
+  FROM '.IMAGES_TABLE.' i
+  INNER JOIN
+  (
+    SELECT
+      '.implode(",\n      ", $duplicates_on_fields).'
+    FROM '.IMAGES_TABLE;
 
-    if (in_array('md5sum', $duplicates_on_fields))
-    {
+      if (in_array('md5sum', $duplicates_on_fields))
+      {
+        $query.= '
+    WHERE md5sum IS NOT NULL';
+      }
+
       $query.= '
-  WHERE md5sum IS NOT NULL
-';
-    }
-
-    $query.= '
-  GROUP BY '.implode(',', $duplicates_on_fields).'
-  HAVING COUNT(*) > 1
+    GROUP BY '.implode(',', $duplicates_on_fields).'
+    HAVING COUNT(*) > 1
+  ) duplicate_images
+  ON '.implode('
+  AND ', array_map(function($field)
+  {
+    return '(i.'.$field.' = duplicate_images.'.$field.'
+    OR (i.'.$field.' IS NULL AND duplicate_images.'.$field.' IS NULL))';
+  }, $duplicates_on_fields)).'
 ;';
-    $array_of_ids_string = query2array($query, null, 'ids');
-
-    $ids = array();
-    
-    foreach ($array_of_ids_string as $ids_string)
-    {
-      $ids_string = rtrim($ids_string,',');
-      $ids = array_merge($ids, explode(',', $ids_string));
+      $filter_sets[] = query2array($query, null, 'id');
     }
-    
-    $filter_sets[] = $ids;
+    else
+    {
+      $filter_sets[] = array();
+    }
 
     break;
 

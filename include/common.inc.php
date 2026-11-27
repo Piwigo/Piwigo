@@ -183,19 +183,6 @@ if (!isset($conf['last_major_update']))
   conf_update_param('last_major_update', $dbnow, true);
 }
 
-// 2022-02-25 due to escape on "rank" (becoming a mysql keyword in version 8), the $conf['order_by'] might
-// use a "rank", even if admin/configuration.php should have removed it. We must remove it.
-// TODO remove this data update as soon as 2025 arrives
-if (preg_match('/(, )?`rank` ASC/', $conf['order_by']))
-{
-  $order_by = preg_replace('/(, )?`rank` ASC/', '', $conf['order_by']);
-  if ('ORDER BY ' == $order_by)
-  {
-    $order_by = 'ORDER BY id ASC';
-  }
-  conf_update_param('order_by', $order_by, true);
-}
-
 // users can have defined a custom order pattern, incompatible with GUI form
 if (isset($conf['order_by_custom']))
 {
