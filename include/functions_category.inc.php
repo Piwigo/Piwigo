@@ -581,7 +581,7 @@ FROM '.CATEGORIES_TABLE.' as c
  */
 function remove_computed_category(&$cats, $cat)
 {
-  if ( isset($cats[$cat['id_uppercat']]) )
+  if ( isset($cat['id_uppercat']) and isset($cats[$cat['id_uppercat']]) )
   {
     $parent = &$cats[ $cat['id_uppercat'] ];
     $parent['nb_categories']--;
@@ -591,7 +591,7 @@ function remove_computed_category(&$cats, $cat)
       $parent['count_images'] -= $cat['nb_images'];
       $parent['count_categories'] -= 1+$cat['count_categories'];
 
-      if ( !isset($cats[$parent['id_uppercat']]) )
+      if ( !isset($parent['id_uppercat']) or !isset($cats[$parent['id_uppercat']]) )
       {
         break;
       }
