@@ -72,6 +72,14 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+      'pwg.getConfig',
+      'ws_getConfig',
+      null,
+      'Returns global configuration.',
+      $ws_functions_root . 'pwg.php'
+    );
+
+  $service->addMethod(
       'pwg.getCacheSize',
       'ws_getCacheSize',
       null,
